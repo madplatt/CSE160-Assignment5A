@@ -9,12 +9,14 @@ const texLoader = new THREE.TextureLoader();
 const objLoader = new OBJLoader();
 const mtlLoader = new MTLLoader();
 
-let cat, cylinder, box = null;
+let cat, cylinder, box, floor, sphere = null;
 
 const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 addBox();
+addFloor();
+addSphere();
 addCylinder();
 addCat();
 addLight();
@@ -50,6 +52,15 @@ function addBox()
 	scene.add( box );
 }
 
+function addFloor()
+{
+	const floorGeo = new THREE.BoxGeometry( 800, 800, 20 );
+	const floorMat = new THREE.MeshBasicMaterial( {color: 0x0000FF} );
+	floor = new THREE.Mesh( floorGeo, floorMat );
+	floor.translateZ(-30);
+	scene.add( floor );
+}
+
 function addCylinder()
 {
 	const cylGeo = new THREE.CylinderGeometry(10, 10, 40 );
@@ -57,6 +68,16 @@ function addCylinder()
 	cylinder = new THREE.Mesh( cylGeo, cylMat );
 	cylinder.translateX(50);
 	scene.add( cylinder );
+}
+
+function addSphere()
+{
+	const sphGeo = new THREE.SphereGeometry(8);
+	const sphMat = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+	sphere = new THREE.Mesh( sphGeo, sphMat );
+	sphere.translateZ(70);
+	sphere.translateY(50);
+	scene.add( sphere );
 }
 
 function addCat()
